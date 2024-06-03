@@ -13,7 +13,10 @@ async function main() {
                 {name: "Marketing & Sales"},
                 {name: "Music"},
                 {name: "Photography & VideoGraphy"},
-                {name: "Enginnering"},
+                {name: "Acting"},
+                {name: "Health Science"},
+                {name: "Data Anlytics"},
+                {name: "Psycology"},
             ]
         });
 
