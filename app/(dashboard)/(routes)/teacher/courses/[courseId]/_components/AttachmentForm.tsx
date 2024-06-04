@@ -51,7 +51,6 @@ const AttachmentForm = ({initialData, courseId}: AttachmentFormProps) => {
         }
     } 
 
-    console.log(initialData!.attachments!);
     
 
   return (
