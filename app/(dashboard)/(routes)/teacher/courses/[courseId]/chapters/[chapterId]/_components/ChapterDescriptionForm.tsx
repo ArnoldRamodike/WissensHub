@@ -23,7 +23,7 @@ interface DescriptionFromProps{
 
 
 const formSchema = z.object({
-    isFree: z.boolean().default(false),
+    description: z.string().min(1),
 });
 
 const ChapterDescriptionForm = ({initialData, courseId, chapterId}: DescriptionFromProps) => {
@@ -31,7 +31,7 @@ const ChapterDescriptionForm = ({initialData, courseId, chapterId}: DescriptionF
     const form  = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            isFree: Boolean(initialData.isFree)
+            description: initialData.description || ""
         },
     });
 

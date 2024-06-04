@@ -23,7 +23,7 @@ interface ChapterAcessFormProps{
 }
 
 const formSchema = z.object({
-    description: z.string().min(1),
+    isFree: z.boolean().default(false),
 });
 
 const ChapterAcessForm = ({initialData, courseId, chapterId}: ChapterAcessFormProps) => {
@@ -31,7 +31,7 @@ const ChapterAcessForm = ({initialData, courseId, chapterId}: ChapterAcessFormPr
     const form  = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            description: initialData.description || ""
+            isFree: Boolean(initialData.isFree) 
         },
     });
 
