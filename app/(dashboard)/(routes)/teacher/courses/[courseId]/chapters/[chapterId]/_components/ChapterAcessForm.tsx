@@ -1,7 +1,5 @@
 'use client'
 
-import Editor from '@/components/editor';
-import Preview from '@/components/preview';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormMessage } from '@/components/ui/form';
