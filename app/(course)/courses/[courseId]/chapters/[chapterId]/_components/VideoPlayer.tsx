@@ -1,25 +1,54 @@
 'use client'
 
+import { useConfettiStore } from '@/hooks/use-confetti-store'
 import { cn } from '@/lib/utils'
 import MuxPlayer from '@mux/mux-player-react'
 import axios from 'axios'
 import { Loader2, Lock } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
-import { boolean, string } from 'zod'
 
 interface VideoPlayerProps{
     chapterId: string
     title: string;
     courseId: string;
-    nexChapterId?: string;
+    nextChapterId?: string;
     playbackId: string;
     isLocked: boolean;
     completedOnEnd: boolean
 }
 
-const VideoPlayer = ({chapterId, completedOnEnd, courseId, isLocked, playbackId, title, nexChapterId }: VideoPlayerProps) => {
-    const [isReady, setIsReady] = useState(false)
+const VideoPlayer = ({chapterId, completedOnEnd, courseId, isLocked, playbackId, title, nextChapterId }: VideoPlayerProps) => {
+    const [isReady, setIsReady] = useState(false);
+
+    const router = useRouter();
+    const confetti = useConfettiStore();
+
+
+    const onEnded = async () => {
+      try {
+        if (completedOnEnd) {
+          await axios.put(`/api/course/${courseId}/chapters/${chapterId}/progress`,{
+            isCompleted: true,
+          });
+
+          if (!nextChapterId) {
+            confetti.onOpen();
+          }
+
+          toast.success("Progress updated");
+          router.refresh();
+
+          if (nextChapterId) {
+            router.push(`/courses/${chapterId}/chapters/${nextChapterId}`)
+          }
+        }
+      } catch (error) {
+        toast.error("Sometging went wrong")
+      }
+    }
+
   return (
     <div className='relative aspect-video'>
         {!isLocked && isLocked && (
@@ -40,7 +69,7 @@ const VideoPlayer = ({chapterId, completedOnEnd, courseId, isLocked, playbackId,
           title={title}
           className={cn(!isReady && 'hidden')}
           onCanPlay={() => setIsReady(true)}
-          onEnded={() => {}}
+          onEnded={onEnded}
           autoPlay
           playbackId={playbackId}
           />
