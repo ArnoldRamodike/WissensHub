@@ -1,7 +1,7 @@
 import { clerkMiddleware } from "@clerk/nextjs/server";
 
 export default clerkMiddleware({
-  publicRoutes: ["/api/webhook"]
+  authorizedParties: ["/api/webhook"]
 });
 
 export const config = {

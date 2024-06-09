@@ -11,7 +11,7 @@ import toast from 'react-hot-toast';
 import { z } from 'zod';
 
 interface AttachmentFormProps{
-    initialData: Course & {attachments: Attachment[]};
+    initialData: Course & {attachements: Attachment[]};
     courseId: string;
 }
 
@@ -78,12 +78,12 @@ const AttachmentForm = ({initialData, courseId}: AttachmentFormProps) => {
 
         {!isEditing ? (
             <>
-            {initialData?.attachments?.length === 0 && (
+            {initialData?.attachements?.length === 0 && (
                 <p className='text-sm mt-2 text-slate-200 italic'> No attachments</p>
             )}
-            {initialData?.attachments?.length > 0 && (
+            {initialData?.attachements?.length > 0 && (
                <div className="space-y-2">
-                    {initialData.attachments.map((attachemnt) => (
+                    {initialData.attachements.map((attachemnt) => (
                         <div className="flex items-center p-3 w-full bg-sky-100 border-sky-200 border text-sky-700 rounded-md" key={attachemnt.id}>
                             <File className='h-4 w-4 mr-2 flex-shrink-0'/>
                             <p className='text-xs line-clamp-1'>{attachemnt.name}</p>

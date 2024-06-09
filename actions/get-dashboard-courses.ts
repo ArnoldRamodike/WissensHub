@@ -21,7 +21,7 @@ export const getDashboardCourses = async (userId: string): Promise<DashboardCour
             select:{
                 course:{
                     include: {
-                        Category: true,
+                        category: true,
                         chapters:{
                             where: {
                                 isPublished: true,
@@ -48,10 +48,10 @@ export const getDashboardCourses = async (userId: string): Promise<DashboardCour
         }
 
     } catch (error) {
-        console.log("[GET_DAHBOARD_COURSES]", error);
+        console.log("[GET_DASHBOARD_COURSES]", error);
         return{
             completedCourses: [],
-            coursesInprogress: [],
+            coursesInProgress: [],
         } 
     }
 }

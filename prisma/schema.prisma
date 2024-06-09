@@ -24,7 +24,7 @@ model Course {
   isPublished Boolean @default(false)
 
   categoryId String?
-  Category   Category? @relation(fields: [categoryId], references: [id])
+  category   Category? @relation(fields: [categoryId], references: [id])
 
   chapters     Chapter[]
   attachements Attachment[]

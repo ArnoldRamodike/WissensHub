@@ -58,7 +58,7 @@ export async function PATCH(
 
             const asset = await video.assets.create({
                 input: values.videoUrl,
-                playback_policy: "public",
+                playback_policy: ['public'],
                 test: false
             });
 
@@ -113,13 +113,13 @@ export async function DELETE(
         }
 
         if (chapter.videoUrl) {
-            const existingMuxData  =await db.muxData.findFirst({
+            const existingMuxData = await db.muxData.findFirst({
                 where: { 
                     chapterId: params.chapterId,
                 }
             });
 
-            if (!existingMuxData) {
+            if (existingMuxData) {
                 await video.assets.delete(existingMuxData.assetId);
                 await db.muxData.delete({
                     where:{

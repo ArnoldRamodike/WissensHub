@@ -11,9 +11,7 @@ import CategoryForm from './_components/CategoryForm';
 import PriceForm from './_components/PriceForm';
 import AttachmentForm from './_components/AttachmentForm';
 import ChaptersForm from './_components/ChaptersForm';
-import { boolean } from 'zod';
 import Banner from '@/components/banner';
-import ChapterActions from './chapters/[chapterId]/_components/ChapterActions';
 import Actions from './_components/Actions';
 
 const CourseIdPage = async ({params}: {params: {courseId: string}}) => {
@@ -38,7 +36,8 @@ const CourseIdPage = async ({params}: {params: {courseId: string}}) => {
             orderBy: {
               createdAt: 'desc'
             }
-          }
+          },
+          category: true,
         }
     })
 
@@ -107,14 +106,14 @@ const CourseIdPage = async ({params}: {params: {courseId: string}}) => {
                   initialData={course}
                   courseId={course.id}
                 />
-                <CategoryForm
+               { categories && <CategoryForm
                   initialData={course}
                   courseId={course.id}
                   options={categories.map((category) => ({
                     label: category?.name,
                     value: category?.id
                   }))}
-                />
+                />}
             </div>
             <div className="space-y-6">
                 <div>
