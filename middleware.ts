@@ -22,7 +22,7 @@ const publicRoutes = ['/api/webhook', '/'];
 
 export default clerkMiddleware((req) => {
 
-  if (publicRoutes.includes(req.path)) {
+  if (publicRoutes.includes(req.name)) {
     return NextResponse.next(); // Allow access to public routes without authentication
   }
 
@@ -30,3 +30,4 @@ export default clerkMiddleware((req) => {
 });
 
 export const config = { matcher: '/((?!_next/image|_next/static|favicon.ico).*)' };
+

@@ -13,7 +13,7 @@ export default async function Dashboard() {
 
   if (!userId) {
     console.log("user not found");
-     return redirect("/")
+     return redirect("/sign-in")
   }
 
   
