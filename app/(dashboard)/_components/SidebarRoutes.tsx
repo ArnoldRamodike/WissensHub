@@ -29,12 +29,12 @@ const teacherRoutes = [
     },
     {
         icon: BarChart,
-        label: "Analytics",
-        href: "/teacher/analytics"
+        label: "Users",
+        href: "/teacher/users"
     },
     {
         icon: Contact2,
-        label: "Users",
+        label: "Analytics",
         href: "/teacher/analytics"
     },
 ]
