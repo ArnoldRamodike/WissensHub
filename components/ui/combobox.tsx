@@ -2,61 +2,58 @@
 
 import * as React from "react"
 import { Check, ChevronsUpDown } from "lucide-react"
-
-import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from "@/components/ui/command"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 
-interface ComboBoxProps{
-    options: {label: string, value: string}[];
-    value?: string,
-    onChange: (value: string) => void; 
+interface ComboBoxProps {
+    options: { label: string; value: string }[];
+    value?: string;
+    onChange: (value: string) => void;
 }
 
-export const  ComboBox = ({options, value, onChange}: ComboBoxProps) => {
-  const [open, setOpen] = React.useState(false)
+export const ComboBox = ({ options = [], value, onChange }: ComboBoxProps) => {
+    const [open, setOpen] = React.useState(false)
 
-  return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
-        <Button
-          variant="outline"
-          role="combobox"
-          aria-expanded={open}
-          className="w-full justify-between"
-        >
-          {value
-            ? options.find((option) => option.value === value)?.label
-            : "Select option..."}
-          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-full p-0">
-        <Command>
-          <CommandInput placeholder="Search option..." />
-          <CommandEmpty>No option found.</CommandEmpty>
-          <CommandGroup>
-            {options.map((option) => (
-              <CommandItem
-                key={option.value}
-                onSelect={() => {
-                  onChange(option.value === value ? "" : option.value)
-                  setOpen(false)
-                }}
-              >
-                <Check
-                  className={cn(
-                    "mr-2 h-4 w-4",
-                    value === option.value ? "opacity-100" : "opacity-0"
-                  )}
-                />
-                {option.label}
-              </CommandItem>
-            ))}
-          </CommandGroup>
-        </Command>
-      </PopoverContent>
-    </Popover>
-  )
+    return (
+        <Popover open={open} onOpenChange={setOpen}>
+            <PopoverTrigger asChild>
+                <Button
+                    variant="outline"
+                    role="combobox"
+                    aria-expanded={open}
+                    className="w-full justify-between bg-white border border-gray-300 rounded-md shadow-sm"
+                >
+                    {value
+                        ? options.find((option) => option.value === value)?.label
+                        : "Select option..."}
+                    <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-full mt-2 bg-white border border-gray-300 rounded-md shadow-lg p-2">
+                <div className="max-h-60 overflow-auto">
+                    {options.length > 0 ? (
+                        options.map((option) => (
+                            <div
+                                key={option.value}
+                                onClick={() => {
+                                    onChange(option.value === value ? "" : option.value)
+                                    setOpen(false)
+                                }}
+                                className={`flex p-2 cursor-pointer hover:bg-gray-100 rounded-md ${
+                                    value === option.value ? "bg-sky-500" : ""
+                                }`}
+                            >
+                              {value === option.value &&  <Check
+                                    className={`mr-2 size-5  text-green-500 `}
+                                />}
+                                {option.label}
+                            </div>
+                        ))
+                    ) : (
+                        <div className="p-2 text-gray-500">No options available</div>
+                    )}
+                </div>
+            </PopoverContent>
+        </Popover>
+    )
 }

@@ -46,7 +46,6 @@ const CourseIdPage = async ({params}: {params: {courseId: string}}) => {
             name: 'asc',
         }
     });
-
     
     if (!course) {
         return redirect("/");
@@ -106,13 +105,13 @@ const CourseIdPage = async ({params}: {params: {courseId: string}}) => {
                   initialData={course}
                   courseId={course.id}
                 />
-               { categories && <CategoryForm
+               { categories.length > 0 && <CategoryForm
                   initialData={course}
                   courseId={course.id}
                   options={categories.map((category) => ({
                     label: category?.name,
                     value: category?.id
-                  }))}
+                  })) || []}
                 />}
             </div>
             <div className="space-y-6">
